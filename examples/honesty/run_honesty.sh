@@ -18,12 +18,19 @@ echo "Started:   $(date)"
 # --- environment setup ---
 PYTHON="$HOME/.conda/envs/repe/bin/python"
 
-# --- cache models to scratch so they don't eat your home quota ---
-export HF_HOME="/scratch/$USER/hf_cache"
+# --- model cache: use scratch if available, otherwise fall back to home ---
+if [ -d "/scratch/$USER" ]; then
+    export HF_HOME="/scratch/$USER/hf_cache"
+elif [ -d "/scratch" ] && [ -w "/scratch" ]; then
+    export HF_HOME="/scratch/$USER/hf_cache"
+else
+    export HF_HOME="$HOME/.cache/huggingface"
+fi
 mkdir -p "$HF_HOME"
+echo "HF_HOME: $HF_HOME"
 
 # --- run ---
-REPO="$HOME/representation-engineering"
+REPO="$HOME/matrix/representation-engineering"
 cd "$REPO/examples/honesty"
 "$PYTHON" honesty.py \
     --model "mistralai/Mistral-7B-Instruct-v0.1" \
