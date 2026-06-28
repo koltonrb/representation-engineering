@@ -61,7 +61,7 @@ class RepReadingPipeline(Pipeline):
 
         if self.image_processor:
             return self.image_processor(inputs, add_end_of_utterance_token=False, return_tensors="pt")
-        return self.tokenizer(inputs, return_tensors=self.framework, **tokenizer_kwargs)
+        return self.tokenizer(inputs, return_tensors="pt", **tokenizer_kwargs)
 
     def postprocess(self, outputs):
         return outputs
