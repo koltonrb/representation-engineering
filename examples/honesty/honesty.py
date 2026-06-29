@@ -163,7 +163,8 @@ def save_lat_scan(input_ids, rep_reader_scores_dict: dict, layer_slice, output_d
 
 
 def save_detection_plot(
-    input_ids, rep_reader_scores_mean_dict: dict, threshold: float, output_dir: Path
+    input_ids, rep_reader_scores_mean_dict: dict, threshold: float, output_dir: Path,
+    start_answer_token: str = ":",
 ) -> None:
     cmap = LinearSegmentedColormap.from_list(
         "rg", ["r", (255 / 255, 255 / 255, 224 / 255), "g"], N=256
@@ -201,7 +202,7 @@ def save_detection_plot(
         started = False
 
         for word, score in zip(words[5:], rep_scores[5:]):
-            if ":" in word:
+            if start_answer_token in word:
                 started = True
                 continue
             if not started:
@@ -472,7 +473,11 @@ def main() -> None:
     # (slice(20,-20) from the original notebook assumed a 60-layer model.)
     skip = max(1, len(hidden_layers) // 6)
     save_lat_scan(input_ids, rep_reader_scores_dict, slice(skip, -skip), output_dir)
-    save_detection_plot(input_ids, rep_reader_scores_mean_dict, args.threshold, output_dir)
+    # Vicuna uses "ASSISTANT:" (colon triggers), Mistral uses "[/INST]".
+    # "/INST" matches [/INST] but not [INST], so it correctly finds the response boundary.
+    start_answer_token = ":" if assistant_tag == "ASSISTANT:" else "/INST"
+    save_detection_plot(input_ids, rep_reader_scores_mean_dict, args.threshold, output_dir,
+                        start_answer_token=start_answer_token)
 
     # ------------------------------------------------------------------
     # Stage 6: Honesty control
