@@ -412,6 +412,8 @@ def main() -> None:
 
     check_shutdown(log)
 
+    chosen_str = test_data[0]
+
     lat_data = load_checkpoint(output_dir, "lat_scores")
     if lat_data is not None:
         log.info("Resuming: loaded LAT scores from checkpoint.")
@@ -421,7 +423,6 @@ def main() -> None:
     else:
         log.info("Stage 5: running LAT scan over all token positions...")
         layers_for_mean = range(-15, -35, -1)
-        chosen_str = test_data[0]
         input_ids = tokenizer.tokenize(chosen_str)
 
         scan_results = []
