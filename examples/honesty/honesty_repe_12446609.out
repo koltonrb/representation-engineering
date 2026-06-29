@@ -1,0 +1,57 @@
+Job ID:    12446609
+Node:      m9g-1-8
+Started:   Sat Jun 27 22:34:13 MDT 2026
+HF_HOME: /home/koltonrb/.cache/huggingface
+2026-06-27 22:35:19,553  INFO      === Honesty RepE job starting ===
+2026-06-27 22:35:19,553  INFO      Model: mistralai/Mistral-7B-Instruct-v0.1
+2026-06-27 22:35:19,553  INFO      Output dir: output-mistral-test
+2026-06-27 22:35:19,553  INFO      Loading model and tokenizer...
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   0%|          | 1/291 [00:01<07:56,  1.64s/it]Loading weights:   4%|▍         | 13/291 [00:02<00:33,  8.20it/s]Loading weights:   5%|▌         | 15/291 [00:02<00:35,  7.81it/s]Loading weights:   8%|▊         | 22/291 [00:02<00:26, 10.06it/s]Loading weights:   8%|▊         | 24/291 [00:02<00:24, 10.71it/s]Loading weights:  11%|█         | 31/291 [00:03<00:29,  8.91it/s]Loading weights:  14%|█▎        | 40/291 [00:04<00:24, 10.32it/s]Loading weights:  14%|█▍        | 42/291 [00:04<00:23, 10.47it/s]Loading weights:  17%|█▋        | 49/291 [00:05<00:21, 11.19it/s]Loading weights:  18%|█▊        | 51/291 [00:05<00:20, 11.71it/s]Loading weights:  20%|█▉        | 58/291 [00:06<00:20, 11.15it/s]Loading weights:  23%|██▎       | 67/291 [00:06<00:18, 11.92it/s]Loading weights:  26%|██▌       | 76/291 [00:07<00:17, 12.64it/s]Loading weights:  27%|██▋       | 78/291 [00:07<00:16, 12.54it/s]Loading weights:  29%|██▉       | 85/291 [00:08<00:16, 12.68it/s]Loading weights:  32%|███▏      | 94/291 [00:08<00:16, 12.15it/s]Loading weights:  35%|███▌      | 103/291 [00:09<00:14, 13.34it/s]Loading weights:  36%|███▌      | 105/291 [00:09<00:14, 13.14it/s]Loading weights:  38%|███▊      | 112/291 [00:10<00:13, 12.87it/s]Loading weights:  39%|███▉      | 114/291 [00:10<00:13, 12.76it/s]Loading weights:  42%|████▏     | 121/291 [00:11<00:13, 12.16it/s]Loading weights:  45%|████▍     | 130/291 [00:11<00:12, 12.56it/s]Loading weights:  48%|████▊     | 139/291 [00:12<00:11, 12.82it/s]Loading weights:  48%|████▊     | 141/291 [00:12<00:12, 12.43it/s]Loading weights:  51%|█████     | 148/291 [00:13<00:11, 12.66it/s]Loading weights:  52%|█████▏    | 150/291 [00:13<00:10, 13.08it/s]Loading weights:  54%|█████▍    | 157/291 [00:14<00:12, 11.16it/s]Loading weights:  57%|█████▋    | 166/291 [00:14<00:10, 12.22it/s]Loading weights:  58%|█████▊    | 168/291 [00:14<00:09, 12.30it/s]Loading weights:  60%|██████    | 175/291 [00:15<00:09, 12.83it/s]Loading weights:  63%|██████▎   | 184/291 [00:16<00:08, 12.79it/s]Loading weights:  66%|██████▋   | 193/291 [00:16<00:07, 13.91it/s]Loading weights:  67%|██████▋   | 195/291 [00:16<00:07, 13.68it/s]Loading weights:  69%|██████▉   | 202/291 [00:17<00:06, 13.11it/s]Loading weights:  70%|███████   | 204/291 [00:17<00:06, 13.20it/s]Loading weights:  73%|███████▎  | 211/291 [00:17<00:05, 14.24it/s]Loading weights:  73%|███████▎  | 213/291 [00:18<00:05, 13.95it/s]Loading weights:  76%|███████▌  | 220/291 [00:18<00:05, 12.48it/s]Loading weights:  79%|███████▊  | 229/291 [00:19<00:04, 12.76it/s]Loading weights:  79%|███████▉  | 231/291 [00:19<00:04, 13.23it/s]Loading weights:  82%|████████▏ | 238/291 [00:20<00:04, 12.69it/s]Loading weights:  82%|████████▏ | 240/291 [00:20<00:04, 12.64it/s]Loading weights:  85%|████████▍ | 247/291 [00:20<00:03, 12.75it/s]Loading weights:  88%|████████▊ | 256/291 [00:21<00:02, 12.23it/s]Loading weights:  91%|█████████ | 265/291 [00:22<00:02, 12.88it/s]Loading weights:  92%|█████████▏| 267/291 [00:22<00:01, 13.38it/s]Loading weights:  94%|█████████▍| 274/291 [00:22<00:01, 13.79it/s]Loading weights:  95%|█████████▍| 276/291 [00:22<00:01, 13.44it/s]Loading weights:  97%|█████████▋| 283/291 [00:23<00:00, 12.78it/s]Loading weights: 100%|██████████| 291/291 [00:23<00:00, 12.33it/s]
+2026-06-27 22:36:03,414  INFO      Model loaded: 32 hidden layers
+2026-06-27 22:36:03,416  INFO      Tags: user='[INST]'  assistant='[/INST]'
+2026-06-27 22:36:03,423  INFO      Building dataset from /home/koltonrb/matrix/representation-engineering/data/facts/facts_true_false.csv
+Train data: 1024
+Test data: 512
+2026-06-27 22:36:03,513  INFO      Stage 2: computing honesty directions...
+Traceback (most recent call last):
+  File "/home/koltonrb/matrix/representation-engineering/examples/honesty/honesty.py", line 538, in <module>
+    main()
+  File "/home/koltonrb/matrix/representation-engineering/examples/honesty/honesty.py", line 336, in main
+    rep_reader = rep_reading_pipeline.get_directions(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/matrix/representation-engineering/repe/rep_reading_pipeline.py", line 138, in get_directions
+    hidden_states = self._batched_string_to_hiddens(train_inputs, rep_token, hidden_layers, batch_size, which_hidden_states, **tokenizer_args)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/matrix/representation-engineering/repe/rep_reading_pipeline.py", line 92, in _batched_string_to_hiddens
+    hidden_states_outputs = self(train_inputs, rep_token=rep_token,
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1257, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 126, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 126, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 718, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 778, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 54, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+            ~~~~~~~~~~~~^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 19, in __getitem__
+    processed = self.process(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/matrix/representation-engineering/repe/rep_reading_pipeline.py", line 64, in preprocess
+    return self.tokenizer(inputs, return_tensors=self.framework, **tokenizer_kwargs)
+                                                 ^^^^^^^^^^^^^^
+AttributeError: 'RepReadingPipeline' object has no attribute 'framework'
+Finished: Sat Jun 27 22:36:07 MDT 2026
