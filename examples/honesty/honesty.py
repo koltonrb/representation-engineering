@@ -468,7 +468,10 @@ def main() -> None:
 
     check_shutdown(log)
 
-    save_lat_scan(input_ids, rep_reader_scores_dict, slice(20, -20), output_dir)
+    # Skip ~1/6 of layers from each end so the slice is never empty.
+    # (slice(20,-20) from the original notebook assumed a 60-layer model.)
+    skip = max(1, len(hidden_layers) // 6)
+    save_lat_scan(input_ids, rep_reader_scores_dict, slice(skip, -skip), output_dir)
     save_detection_plot(input_ids, rep_reader_scores_mean_dict, args.threshold, output_dir)
 
     # ------------------------------------------------------------------
