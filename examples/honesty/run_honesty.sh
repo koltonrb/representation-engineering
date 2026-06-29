@@ -32,6 +32,10 @@ fi
 mkdir -p "$HF_HOME"
 echo "HF_HOME: $HF_HOME"
 
+# compute nodes have no internet — use only what's already cached
+export TRANSFORMERS_OFFLINE=1
+export HF_DATASETS_OFFLINE=1
+
 # --- run ---
 REPO="$HOME/matrix/representation-engineering"
 cd "$REPO/examples/honesty"
