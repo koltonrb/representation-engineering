@@ -1,0 +1,61 @@
+Job ID:    12451265
+Node:      m13l-1-1
+Started:   Mon Jun 29 11:44:57 MDT 2026
+HF_HOME: /home/koltonrb/.cache/huggingface
+2026-06-29 11:45:45,991  INFO      === Honesty RepE job starting ===
+2026-06-29 11:45:45,991  INFO      Model: ehartford/Wizard-Vicuna-30B-Uncensored
+2026-06-29 11:45:45,991  INFO      Output dir: output-wizard-30b
+2026-06-29 11:45:45,991  INFO      Loading model and tokenizer...
+'[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/ehartford/Wizard-Vicuna-30B-Uncensored/resolve/main/config.json
+2026-06-29 11:45:52,240  WARNING   '[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/ehartford/Wizard-Vicuna-30B-Uncensored/resolve/main/config.json
+Retrying in 1s [Retry 1/5].
+2026-06-29 11:45:52,241  WARNING   Retrying in 1s [Retry 1/5].
+Traceback (most recent call last):
+  File "/home/koltonrb/matrix/representation-engineering/examples/honesty/honesty.py", line 547, in <module>
+    main()
+  File "/home/koltonrb/matrix/representation-engineering/examples/honesty/honesty.py", line 293, in main
+    model = AutoModelForCausalLM.from_pretrained(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/transformers/models/auto/auto_factory.py", line 289, in from_pretrained
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/transformers/utils/hub.py", line 527, in cached_files
+    raise e
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/transformers/utils/hub.py", line 437, in cached_files
+    hf_hub_download(
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1016, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1149, in _hf_hub_download_to_cache_dir
+    _get_metadata_or_catch_error(
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1691, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1613, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 700, in _httpx_follow_relative_redirects_with_backoff
+    response = http_backoff(
+               ^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 574, in http_backoff
+    return next(
+           ^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 482, in _http_backoff_base
+    response = client.request(method=method, url=url, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/httpx/_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/koltonrb/.conda/envs/repe/lib/python3.11/site-packages/httpx/_client.py", line 901, in send
+    raise RuntimeError("Cannot send a request, as the client has been closed.")
+RuntimeError: Cannot send a request, as the client has been closed.
+Finished: Mon Jun 29 11:45:55 MDT 2026

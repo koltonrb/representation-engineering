@@ -1,0 +1,6 @@
+2026-06-29 11:45:45,991  INFO      === Honesty RepE job starting ===
+2026-06-29 11:45:45,991  INFO      Model: ehartford/Wizard-Vicuna-30B-Uncensored
+2026-06-29 11:45:45,991  INFO      Output dir: output-wizard-30b
+2026-06-29 11:45:45,991  INFO      Loading model and tokenizer...
+2026-06-29 11:45:52,240  WARNING   '[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/ehartford/Wizard-Vicuna-30B-Uncensored/resolve/main/config.json
+2026-06-29 11:45:52,241  WARNING   Retrying in 1s [Retry 1/5].
