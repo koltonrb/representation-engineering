@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
 #SBATCH --partition=m13l
-#SBATCH --gres=gpu:l40s:1
+#SBATCH --gres=gpu:l40s:2
 #SBATCH --output=%x_%j.out
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=koltonrbaldwin@gmail.com
