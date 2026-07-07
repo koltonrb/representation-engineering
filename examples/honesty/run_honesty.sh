@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
 #SBATCH --partition=m13l
-#SBATCH --gres=gpu:l40s:2
+#SBATCH --gres=gpu:l40s:1
 #SBATCH --output=%x_%j.out
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=koltonrbaldwin@gmail.com
@@ -40,8 +40,8 @@ export HF_DATASETS_OFFLINE=1
 REPO="$HOME/matrix/representation-engineering"
 cd "$REPO/examples/honesty"
 "$PYTHON" honesty.py \
-      --model "ehartford/Wizard-Vicuna-30B-Uncensored" \
-      --output-dir "./output-wizard-30b" \
+      --model "meta-llama/Llama-2-7b-chat-hf" \
+      --output-dir "./output-llama-7b" \
       --batch-size 8
 
 echo "Finished: $(date)"
