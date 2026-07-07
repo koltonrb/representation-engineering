@@ -131,12 +131,13 @@ def save_lat_scan(input_ids, rep_reader_scores_dict: dict, layer_slice, output_d
         except ValueError:
             start_tok = 0
         standardized_scores = np.array(scores)[start_tok : start_tok + 40, layer_slice]
+        tokens = [tok.replace("▁", " ") for tok in input_ids[start_tok : start_tok + 40]]
 
         bound = 2.3
         standardized_scores[np.abs(standardized_scores) < 0] = 1
         standardized_scores = standardized_scores.clip(-bound, bound)
 
-        fig, ax = plt.subplots(figsize=(5, 4), dpi=200)
+        fig, ax = plt.subplots(figsize=(max(5, len(tokens) * 0.25), 4), dpi=200)
         sns.heatmap(
             -standardized_scores.T,
             cmap="coolwarm",
@@ -147,11 +148,10 @@ def save_lat_scan(input_ids, rep_reader_scores_dict: dict, layer_slice, output_d
             vmax=bound,
         )
         ax.tick_params(axis="y", rotation=0)
-        ax.set_xlabel("Token Position")
+        ax.set_xlabel("Token")
         ax.set_ylabel("Layer")
-        ax.set_xticks(np.arange(0, len(standardized_scores), 5)[1:])
-        ax.set_xticklabels(np.arange(0, len(standardized_scores), 5)[1:])
-        ax.tick_params(axis="x", rotation=0)
+        ax.set_xticks(np.arange(len(tokens)) + 0.5)
+        ax.set_xticklabels(tokens, rotation=90, fontsize=6)
         ax.set_yticks(np.arange(0, len(standardized_scores[0]), 5)[1:])
         ax.set_yticklabels(np.arange(20, len(standardized_scores[0]) + 20, 5)[::-1][1:])
         ax.set_title("LAT Neural Activity")
