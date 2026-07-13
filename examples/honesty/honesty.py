@@ -124,14 +124,13 @@ def save_accuracy_plot(hidden_layers, results: dict, output_dir: Path) -> None:
     logging.getLogger(__name__).info("Saved accuracy plot → %s", path)
 
 
-def save_lat_scan(input_ids, rep_reader_scores_dict: dict, layer_slice, output_dir: Path) -> None:
+def save_lat_scan(
+    input_ids, rep_reader_scores_dict: dict, layer_slice, output_dir: Path,
+    response_start_idx: int = 0,
+) -> None:
     for rep, scores in rep_reader_scores_dict.items():
-        try:
-            start_tok = input_ids.index("▁A")
-        except ValueError:
-            start_tok = 0
-        standardized_scores = np.array(scores)[start_tok : start_tok + 40, layer_slice]
-        tokens = [tok.replace("▁", " ") for tok in input_ids[start_tok : start_tok + 40]]
+        standardized_scores = np.array(scores)[response_start_idx : response_start_idx + 40, layer_slice]
+        tokens = [tok.replace("▁", " ") for tok in input_ids[response_start_idx : response_start_idx + 40]]
 
         bound = 2.3
         standardized_scores[np.abs(standardized_scores) < 0] = 1
@@ -466,17 +465,26 @@ def main() -> None:
 
     check_shutdown(log)
 
+    # Find where the assistant tag ends by scanning input_ids itself (the same
+    # tokenization used for rep_reader_scores_dict/rep_reader_scores_mean_dict),
+    # rather than retokenizing the prompt substring on its own — BPE/sentencepiece
+    # merges near the cut point can differ from how the full chosen_str was
+    # tokenized, which was throwing off the index and cutting into the middle
+    # of the response.
+    response_start_idx = 0
+    joined = ""
+    for i, tok in enumerate(input_ids):
+        joined += tok.replace("▁", " ")
+        if assistant_tag in joined:
+            response_start_idx = i + 1
+            break
+    log.info("Response starts at token index %d", response_start_idx)
+
     # Skip ~1/6 of layers from each end so the slice is never empty.
     # (slice(20,-20) from the original notebook assumed a 60-layer model.)
     skip = max(1, len(hidden_layers) // 6)
-    save_lat_scan(input_ids, rep_reader_scores_dict, slice(skip, -skip), output_dir)
-    # Compute response start by counting tokens in the prompt portion of chosen_str.
-    # This works regardless of how the tokenizer splits the assistant tag.
-    response_start_idx = 0
-    if assistant_tag in chosen_str:
-        prompt_part = chosen_str[: chosen_str.index(assistant_tag) + len(assistant_tag)]
-        response_start_idx = len(tokenizer.tokenize(prompt_part))
-    log.info("Detection plot response starts at token index %d", response_start_idx)
+    save_lat_scan(input_ids, rep_reader_scores_dict, slice(skip, -skip), output_dir,
+                  response_start_idx=response_start_idx)
     save_detection_plot(input_ids, rep_reader_scores_mean_dict, args.threshold, output_dir,
                         response_start_idx=response_start_idx)
 
