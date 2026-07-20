@@ -112,6 +112,17 @@ def check_shutdown(log: logging.Logger) -> None:
 # Plotting helpers (save to file rather than plt.show())
 # ---------------------------------------------------------------------------
 
+def detokenize(tok: str) -> str:
+    """Turn a raw token back into a displayable word/space.
+
+    Sentencepiece tokenizers (Llama, Mistral, Vicuna) mark a leading space
+    with '▁'; byte-level BPE tokenizers (Qwen) use 'Ġ' for the same purpose
+    and 'Ċ' for a literal newline (needed to match multi-line tags like
+    Qwen's ChatML assistant_tag against the reconstructed token string).
+    """
+    return tok.replace("▁", " ").replace("Ġ", " ").replace("Ċ", "\n")
+
+
 def save_accuracy_plot(hidden_layers, results: dict, output_dir: Path) -> None:
     fig, ax = plt.subplots()
     ax.plot(hidden_layers, [results[layer] for layer in hidden_layers])
@@ -130,7 +141,7 @@ def save_lat_scan(
 ) -> None:
     for rep, scores in rep_reader_scores_dict.items():
         standardized_scores = np.array(scores)[response_start_idx : response_start_idx + 40, layer_slice]
-        tokens = [tok.replace("▁", " ") for tok in input_ids[response_start_idx : response_start_idx + 40]]
+        tokens = [detokenize(tok) for tok in input_ids[response_start_idx : response_start_idx + 40]]
 
         bound = 2.3
         standardized_scores[np.abs(standardized_scores) < 0] = 1
@@ -168,7 +179,7 @@ def save_detection_plot(
     cmap = LinearSegmentedColormap.from_list(
         "rg", ["r", (255 / 255, 255 / 255, 224 / 255), "g"], N=256
     )
-    words = [token.replace("▁", " ") for token in input_ids]
+    words = [detokenize(token) for token in input_ids]
 
     fig, ax = plt.subplots(figsize=(12.8, 10), dpi=200)
     xlim = 1000
@@ -302,6 +313,8 @@ def main() -> None:
     # Determine user/assistant tags from model family
     if "Wizard-Vicuna" in args.model or "vicuna" in args.model.lower():
         user_tag, assistant_tag = "USER:", "ASSISTANT:"
+    elif "qwen" in args.model.lower():
+        user_tag, assistant_tag = "<|im_start|>user", "<|im_end|>\n<|im_start|>assistant"
     else:
         user_tag, assistant_tag = "[INST]", "[/INST]"
     log.info("Tags: user=%r  assistant=%r", user_tag, assistant_tag)
@@ -405,7 +418,11 @@ def main() -> None:
                 **tokenizer(t, return_tensors="pt").to(model.device),
                 max_new_tokens=30,
             )
-        completion = tokenizer.decode(output[0], skip_special_tokens=True)
+        # Keep special tokens here: some tokenizers (e.g. Qwen's ChatML tags
+        # <|im_start|>/<|im_end|>) register the assistant_tag as a special
+        # token, which skip_special_tokens=True would strip from chosen_str
+        # and make it impossible to relocate the response boundary below.
+        completion = tokenizer.decode(output[0], skip_special_tokens=False)
         log.info("Baseline completion:\n%s", completion)
         test_data.append(completion)
 
@@ -474,7 +491,7 @@ def main() -> None:
     response_start_idx = 0
     joined = ""
     for i, tok in enumerate(input_ids):
-        joined += tok.replace("▁", " ")
+        joined += detokenize(tok)
         if assistant_tag in joined:
             response_start_idx = i + 1
             break

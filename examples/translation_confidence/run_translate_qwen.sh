@@ -1,13 +1,17 @@
 #!/bin/bash
-#SBATCH --job-name=honesty_repe_large
+#SBATCH --job-name=translate_en_es_qwen
 #SBATCH --qos=standby
 #SBATCH --requeue
-#SBATCH --time=12:00:00
+#SBATCH --time=04:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
 #SBATCH --partition=m13l
+# 2 GPUs: the first GPU on m13l nodes is sometimes unavailable, which makes
+# device_map="auto" silently fall back to (very slow) CPU inference instead
+# of erroring — see honesty/run_honesty.sh history. Also matches the GPU
+# count the Qwen2.5-32B honesty job (12727650) actually needed to fit.
 #SBATCH --gres=gpu:l40s:2
 #SBATCH --output=%x_%j.out
 #SBATCH --mail-type=END,FAIL
@@ -38,10 +42,10 @@ export HF_DATASETS_OFFLINE=1
 
 # --- run ---
 REPO="$HOME/matrix/representation-engineering"
-cd "$REPO/examples/honesty"
-"$PYTHON" honesty.py \
-      --model "ehartford/Wizard-Vicuna-30B-Uncensored" \
-      --output-dir "./output-wizard-30b" \
-      --batch-size 8
+cd "$REPO/examples/translation_confidence"
+"$PYTHON" translate.py \
+      --model "Qwen/Qwen2.5-32B-Instruct" \
+      --input-dir "./input" \
+      --output-dir "./output-qwen-32b"
 
 echo "Finished: $(date)"
